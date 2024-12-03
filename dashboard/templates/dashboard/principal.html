@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="wrapper">
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <span class="navbar-brand">Bienvenido, {{ request.user.username }}</span>
+            </nav>
+            <div class="container-fluid">
+                <h1 class="h3 mb-4 text-gray-800">Panel Principal</h1>
+                <p>Tu rol: {{ tipo_usuario }}</p>
+
+                <div class="row">
+                    {% for enlace in enlaces %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="card-title text-center">{{ enlace.nombre }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <a href="{{ enlace.url }}" class="btn btn-info w-100">Ir a {{ enlace.nombre }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

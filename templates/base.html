@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Veterinaria{% endblock %}</title>
+    <link href="{% static 'sb-admin-2/css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'sb-admin-2/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+</head>
+<body id="page-top">
+
+{% if '/login/' not in request.path and '/registro/' not in request.path %}
+<div id="wrapper">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-paw"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">Veterinaria</div>
+        </a>
+        <hr class="sidebar-divider my-0">
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'pagina_principal' %}">
+                <i class="fas fa-home"></i>
+                <span>Inicio</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'listar_productos' %}">
+                <i class="fas fa-box"></i>
+                <span>Gestionar Productos</span>
+            </a>
+        </li>
+
+        {% if user.is_superuser %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'listar_categorias' %}">
+                <i class="fas fa-cogs"></i>
+                <span>Gestionar Categorías</span>
+            </a>
+        </li>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="nav-link btn btn-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar sesión</span>
+                </button>
+            </form>
+        </li>
+        {% endif %}
+    </ul>
+{% endif %}
+
+<div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <span class="navbar-brand">Bienvenido {{ request.user.username }}</span>
+        </nav>
+
+        <div class="container-fluid">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="{% static 'sb-admin-2/js/sb-admin-2.min.js' %}"></script>
+
+</body>
+</html>

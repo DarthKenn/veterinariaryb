@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="wrapper">
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <span class="navbar-brand">Crear Categoría</span>
+            </nav>
+            <div class="container-fluid">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success">Crear Categoría</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
